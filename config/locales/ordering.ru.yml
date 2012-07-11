@@ -1,0 +1,18 @@
+
+ru:
+  admin:
+    actions:
+      orderup:
+        title: "Сортировка"
+        menu: ""
+        breadcrumb: "Сортировка"
+        link: "Сортировка"
+        bulk_link: "Сортировка выбранного %{model_label_plural}"
+        done: "Отсортировано"
+      orderdown:
+        title: "Сортировка"
+        menu: ""
+        breadcrumb: "Сортировка"
+        link: "Сортировка"
+        bulk_link: "Сортировка выбранного %{model_label_plural}"
+        done: "Отсортировано"
