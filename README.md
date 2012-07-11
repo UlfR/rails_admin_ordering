@@ -18,6 +18,12 @@ run from console
 ```
 This should create migration file in your project
 
+Add following line to your model:
+```ruby
+  class Article < ActiveRecord::Base
+    acts_as_ordering
+  end
+```
 
 Add :position field for target model
 
