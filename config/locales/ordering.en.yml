@@ -2,10 +2,7 @@
 en:
   admin:
     actions:
-      ordering:
-        title: "Ordering"
+      orderup:
         menu: ""
-        breadcrumb: "Ordering"
-        link: "Ordering"
-        bulk_link: "Ordering selected %{model_label_plural}"
-        done: "Orderinged"
+      orderdown:
+        menu: ""
