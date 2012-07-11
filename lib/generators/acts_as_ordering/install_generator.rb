@@ -1,4 +1,4 @@
-class ActsAsOrdering::InstallGenerator < Rails::Generators::Base #:nodoc:
+class RailsAdminOrdering::InstallGenerator < Rails::Generators::Base #:nodoc:
   include Rails::Generators::Migration
   source_root File.expand_path('../templates', __FILE__)
   require 'rails/generators/migration'
