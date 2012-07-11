@@ -1,4 +1,4 @@
-class CreateTaggables < ActiveRecord::Migration
+class CreateOrdering < ActiveRecord::Migration
   def self.up
 
     create_table :ordering do |t|
