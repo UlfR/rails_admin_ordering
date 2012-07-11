@@ -12,6 +12,13 @@ Add into your Gemfile
   gem 'rails_admin_ordering', :git => 'git://github.com/netcook/rails_admin_ordering.git'
 ```
 
+run from console
+```ruby
+  rails g rails_admin_ordering:install
+```
+This should create migration file in your project
+
+
 Add :position field for target model
 
 ```ruby
