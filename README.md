@@ -6,6 +6,12 @@ Ordering plugin for rails_admin.
 Installation
 ====================
 
+Add into your Gemfile
+
+```ruby
+  gem 'rails_admin_ordering', :git => 'git://github.com/netcook/rails_admin_ordering.git'
+```
+
 Add :position field for target model
 
 ```ruby
