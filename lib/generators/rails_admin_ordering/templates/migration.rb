@@ -1,7 +1,7 @@
 class CreateOrdering < ActiveRecord::Migration
   def self.up
 
-    create_table :ordering do |t|
+    create_table :orderings do |t|
 
       t.references :orderable, :polymorphic => true
 
@@ -10,10 +10,10 @@ class CreateOrdering < ActiveRecord::Migration
       t.datetime :created_at
     end
 
-    add_index :ordering, [:orderable_id, :orderable_type, :position]
+    add_index :orderings, [:orderable_id, :orderable_type, :position]
   end
 
   def self.down
-    drop_table :ordering
+    drop_table :orderings
   end
 end

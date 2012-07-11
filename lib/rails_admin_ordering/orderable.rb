@@ -9,14 +9,19 @@ module RailsAdminOrdering
       end
       
       def acts_as_ordering(*options)
-        has_many :orderablem :dependent => :destroy, :class_name => 'ActsAsOrdering::Ordering'
+        has_one :orderable, :dependent => :destroy, :class_name => 'RailsAdminOrdering::ActsAsOrdering::Ordering', :as => :orderable
         class_eval do
-          include ActsAsOrdering::Core
+          include RailsAdminOrdering::ActsAsOrdering::Core
         end
+      end
+      
+      
+      def ordering
+        self.joins(:orderable).order( ' orderings.position ASC ').all()
       end
     end
   end
 end
 
 
-ActiveRecord::Base.send :include, RailsAdminOrdering::ActsAsOrdering
+ActiveRecord::Base.send :include, RailsAdminOrdering::Orderable
