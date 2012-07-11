@@ -1,5 +1,5 @@
 require "rails_admin_ordering/engine"
-require "rails_admin_ordering/acts_as_ordering"
+require "rails_admin_ordering/orderable"
 
 module RailsAdminOrdering
 end
