@@ -25,12 +25,6 @@ Add following line to your model:
   end
 ```
 
-Add :position field for target model
-
-```ruby
-  $ rails g migration add_position_to_articles position:integer
-```
-
 Run migration to create all stuff
 
 ```ruby
