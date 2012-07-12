@@ -87,16 +87,21 @@ require 'rails_admin/config/actions'
 
           register_instance_option :controller do
             Proc.new do
+              @ord_obj = RailsAdminOrdering::ActsAsOrdering::Ordering.where( :orderable_type => @object.class.name ).where( "orderings.position > #{@object.orderable.position}" ).order(' orderings.position desc ').first
+
+              
               @obj = @abstract_model.model.joins(:orderable).where( "orderings.position > #{@object.orderable.position}" ).order(' orderings.position asc ').first
-              if !@obj.nil?
-                ord_up = @obj.orderable.position
-                ord_down = @object.orderable.position
-                @object.orderable.position = ord_up.to_i
+              if !@ord_obj.nil?
+                @obj = @abstract_model.model.where( :id => @ord_obj.orderable_id).first
+                @ord_object = @object.orderable
+                ord_up = @ord_obj.orderable.position
+                ord_down = @ord_object.position
+                @ord_object.position = ord_up.to_i
 
-                @obj.orderable.position = ord_down.to_i
+                @ord_obj.position = ord_down.to_i
 
-                @object.orderable.save()
-                @obj.orderable.save()
+                @ord_object.save()
+                @ord_obj.save()
               end
               flash[:notice] = "You have moved #{@object.title} #{params[:go]}."
 
