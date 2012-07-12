@@ -28,7 +28,7 @@ require 'rails_admin/config/actions'
          end
          
          register_instance_option :visible? do
-           bindings[:object].is_a? RailsAdminOrdering
+           bindings[:object].is_a? RailsAdminOrdering::Orderable
          end
          
          register_instance_option :http_methods do
@@ -38,16 +38,19 @@ require 'rails_admin/config/actions'
 
          register_instance_option :controller do
            Proc.new do
-              @obj = @abstract_model.model.where( "position < #{@object.position}" ).order(' position desc ').first
+             @ord_obj = RailsAdminOrdering::ActsAsOrdering::Ordering.where( :orderable_type => @object.class.name ).where( "orderings.position < #{@object.orderable.position}" ).order(' orderings.position desc ').first
+              
 
-              if !@obj.nil?
-                ord_up = @obj.position
-                ord_down = @object.position
-                @object.position = ord_up.to_i
-                @obj.position = ord_down.to_i
+              if !@ord_obj.nil?
+                @obj = @abstract_model.model.where( :id => @ord_obj.orderable_id).first
+                @ord_object = @object.orderable
+                ord_up = @obj.orderable.position
+                ord_down = @ord_object.position
+                @ord_object.position = ord_up.to_i
+                @ord_obj.position = ord_down.to_i
             
-                @object.save()
-                @obj.save()
+                @ord_object.save()
+                @ord_obj.save()
             
               end
              flash[:notice] = "You have moved #{@object.title} #{params[:go]}."
@@ -74,7 +77,7 @@ require 'rails_admin/config/actions'
           end
 
           register_instance_option :visible? do
-            bindings[:object].is_a? RailsAdminOrdering
+            bindings[:object].is_a? RailsAdminOrdering::Orderable
           end
 
           register_instance_option :http_methods do
@@ -84,16 +87,16 @@ require 'rails_admin/config/actions'
 
           register_instance_option :controller do
             Proc.new do
-              @obj = @abstract_model.model.where( "position > #{@object.position}" ).order(' position asc ').first
+              @obj = @abstract_model.model.joins(:orderable).where( "orderings.position > #{@object.orderable.position}" ).order(' orderings.position asc ').first
               if !@obj.nil?
-                ord_up = @obj.position
-                ord_down = @object.position
-                @object.position = ord_up.to_i
+                ord_up = @obj.orderable.position
+                ord_down = @object.orderable.position
+                @object.orderable.position = ord_up.to_i
 
-                @obj.position = ord_down.to_i
+                @obj.orderable.position = ord_down.to_i
 
-                @object.save()
-                @obj.save()
+                @object.orderable.save()
+                @obj.orderable.save()
               end
               flash[:notice] = "You have moved #{@object.title} #{params[:go]}."
 
