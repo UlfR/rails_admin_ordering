@@ -31,12 +31,10 @@ Add :position field for target model
   $ rails g migration add_position_to_articles position:integer
 ```
 
-Edit your model and add 'include RailsAdminOrdering'
+Run migration to create all stuff
 
 ```ruby
-  class Article < ActiveRecord::Base
-    include RailsAdminOrdering
-  end
+  $ rake db:migrate
 ```
 
 Edit config/initializers/rails_admin.rb and add orderup and orderdown actions.
@@ -60,10 +58,3 @@ config.actions do
 end
 ```
 
-Finally in config of your model edit "list" section and add
-
-```ruby
-  sort_by :position
-```
-
-to show your model list in right order
