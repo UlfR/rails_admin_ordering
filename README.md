@@ -52,3 +52,20 @@ config.actions do
 end
 ```
 
+Now to let RailsAdmin do valid order need to patch your model config. For example:
+
+```ruby
+  config.model Category do
+
+    list do
+
+      field :id do
+        sort_reverse false
+        sortable "orderings.position"
+      end
+    end
+  end
+```
+
+That's it!
+
