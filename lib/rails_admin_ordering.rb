@@ -35,6 +35,28 @@ require 'rails_admin/config/actions'
            [:get]
          end
          
+         register_instance_option :breadcrumb_parent do
+           print "here!!!!!!! ==================="
+           case
+           when root?
+             [:dashboard]
+           when collection?
+              RailsAdmin.config do |config|
+                config.model bindings[:abstract_model] do
+                 list do
+                   field :id do
+                     sort_reverse false
+                     sortable "orderings.position"
+                   end
+                 end
+                end
+              end
+             [:index, bindings[:abstract_model].joins(:orderable).order("orderings.position asc")]
+           when member?
+             [:show, bindings[:abstract_model], bindings[:object]]
+           end
+         end
+         
 
          register_instance_option :controller do
            Proc.new do
@@ -83,11 +105,23 @@ require 'rails_admin/config/actions'
           register_instance_option :http_methods do
             [:get]
           end
+          
+          register_instance_option :breadcrumb_parent do
+            print "here"
+            case
+            when root?
+              [:dashboard]
+            when collection?
+              [:index, bindings[:abstract_model].joins(:orderable).order(' orderings.position ASC ')]
+            when member?
+              [:show, bindings[:abstract_model], bindings[:object]]
+            end
+          end
 
 
           register_instance_option :controller do
             Proc.new do
-              @ord_obj = RailsAdminOrdering::ActsAsOrdering::Ordering.where( :orderable_type => @object.class.name ).where( "orderings.position > #{@object.orderable.position}" ).order(' orderings.position desc ').first
+              @ord_obj = RailsAdminOrdering::ActsAsOrdering::Ordering.where( :orderable_type => @object.class.name ).where( "orderings.position > #{@object.orderable.position}" ).order(' orderings.position asc ').first
 
               
               @obj = @abstract_model.model.joins(:orderable).where( "orderings.position > #{@object.orderable.position}" ).order(' orderings.position asc ').first
@@ -109,11 +143,12 @@ require 'rails_admin/config/actions'
             end
           end
         end
+        
+        
+        
        
        
      end
    end
  end
- 
-
 

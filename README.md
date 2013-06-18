@@ -25,18 +25,10 @@ Add following line to your model:
   end
 ```
 
-Add :position field for target model
+Run migration to create all stuff
 
 ```ruby
-  $ rails g migration add_position_to_articles position:integer
-```
-
-Edit your model and add 'include RailsAdminOrdering'
-
-```ruby
-  class Article < ActiveRecord::Base
-    include RailsAdminOrdering
-  end
+  $ rake db:migrate
 ```
 
 Edit config/initializers/rails_admin.rb and add orderup and orderdown actions.
@@ -60,10 +52,20 @@ config.actions do
 end
 ```
 
-Finally in config of your model edit "list" section and add
+Now to let RailsAdmin do valid order need to patch your model config. For example:
 
 ```ruby
-  sort_by :position
+  config.model Category do
+
+    list do
+
+      field :id do
+        sort_reverse false
+        sortable "orderings.position"
+      end
+    end
+  end
 ```
 
-to show your model list in right order
+That's it!
+
