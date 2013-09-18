@@ -59,7 +59,7 @@ Now to let RailsAdmin do valid order need to patch your model config. For exampl
 
     list do
 
-      field :id do
+      field :position do
         sort_reverse false
         sortable "orderings.position"
       end
