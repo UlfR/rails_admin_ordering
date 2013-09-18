@@ -75,7 +75,7 @@ require 'rails_admin/config/actions'
                 @ord_obj.save()
             
               end
-             flash[:notice] = "You have moved #{@object.title} #{params[:go]}."
+             flash[:notice] = "You have moved #{@object.class.name} #{params[:go]}."
 
              redirect_to back_or_index
            end
@@ -137,7 +137,7 @@ require 'rails_admin/config/actions'
                 @ord_object.save()
                 @ord_obj.save()
               end
-              flash[:notice] = "You have moved #{@object.title} #{params[:go]}."
+              flash[:notice] = "You have moved #{@object.class.name} #{params[:go]}."
 
               redirect_to back_or_index
             end
