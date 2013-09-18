@@ -44,7 +44,7 @@ require 'rails_admin/config/actions'
               RailsAdmin.config do |config|
                 config.model bindings[:abstract_model] do
                  list do
-                   field :id do
+                   field :position do
                      sort_reverse false
                      sortable "orderings.position"
                    end
