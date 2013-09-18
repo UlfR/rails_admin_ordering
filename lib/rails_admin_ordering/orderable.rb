@@ -21,7 +21,7 @@ module RailsAdminOrdering
             if self.orderable.nil?
               orderable = RailsAdminOrdering::ActsAsOrdering::Ordering.new
               orderable_count = RailsAdminOrdering::ActsAsOrdering::Ordering.where( :orderable_type => self.class.name ).count(:id)
-              orderable.position = orderable_count
+              orderable.position = orderable_count + 1
               orderable.orderable = self
               orderable.save()
             end
