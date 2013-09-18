@@ -10,7 +10,7 @@ class CreateOrdering < ActiveRecord::Migration
       t.datetime :created_at
     end
 
-    add_index :orderings, [:orderable_id, :orderable_type, :position]
+    add_index(:orderings, [:orderable_id, :orderable_type, :position], name: 'index_unique_orderings')
   end
 
   def self.down
