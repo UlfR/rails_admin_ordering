@@ -10,7 +10,7 @@ module RailsAdminOrdering
       
       def acts_as_ordering(*options)
         has_one :orderable, :dependent => :destroy, :class_name => 'RailsAdminOrdering::ActsAsOrdering::Ordering', :as => :orderable
-        default_scope joins(:orderable).order('orderings.position ASC')
+        default_scope { joins(:orderable).order('orderings.position ASC') }
         after_save :calculate_position
         delegate :position, to: :orderable
         class_eval do
